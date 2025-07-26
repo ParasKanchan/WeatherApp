@@ -8,31 +8,29 @@ export default function SearchBox({updateInfo}){
     const API_URL = "https://api.openweathermap.org/data/2.5/weather";
     const API_Key = "102cefa1d994976669b5caa675b97e8c";
 
-    let getWeatherInfo = async()=>{
-        try{
-            let response = await fetch(`${API_URL}?q=${city}&appid=${API_Key}`);
-            if (!response.ok) {
-               throw new Error("City not found");
-              }
-            let jsonResponse = await response.json();
-            //console.log(jsonResponse);
-            let result = {
-                 city : city,
-                 temp : jsonResponse.main.temp,
-                 tempMin : jsonResponse.main.temp_min,
-                 tempMax : jsonResponse.main.temp_max,
-                 tempFeelsLike : jsonResponse.main.feels_like,
-                 humidity : jsonResponse.main.humidity,
-                 weather : jsonResponse.weather[0].description
-            }
-            console.log(result);
-            return result;
-
-        }catch(error){
-            throw error;
-        }
-       
+let getWeatherInfo = async () => {
+  try {
+    let response = await fetch(`${API_URL}?q=${city}&appid=${API_Key}`);
+    if (!response.ok) {
+      throw new Error("City not found");
     }
+    let jsonResponse = await response.json();
+    let result = {
+      city: city,
+      temp: jsonResponse.main.temp,
+      temp_min: jsonResponse.main.temp_min,
+      temp_max: jsonResponse.main.temp_max,
+      feels_like: jsonResponse.main.feels_like,
+      humidity: jsonResponse.main.humidity,
+      weather: jsonResponse.weather[0].description
+    };
+    console.log(result);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
     
     let handleChange =(evt)=>{
       setCity(evt.target.value);
